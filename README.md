@@ -48,7 +48,7 @@ has_one :address
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | postcode           | string     | null: false                    |
-| ship_address_id    | references | null: false, foreign_key: true |
+| ship_address_id    | integer    | null: false, foreign_key: true |
 | city               | string     | null: false                    |
 | block              | string     | null: false                    |
 | building           | string     |                                |
@@ -56,4 +56,4 @@ has_one :address
 | record             | references | null: false, foreign_key: true |
 
 ### Association
-has_one :record
+belongs_to :record

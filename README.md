@@ -22,38 +22,37 @@ has_many :records
 | item_name          | string     | null: false                    |
 | description        | text       | null: false                    |
 | category           | string     | null: false                    |
-| shipping_fee       | string     | null: false                    |
-| ship_address       | string     | null: false                    |
-| shipping_day       | string     | null: false                    |
-| price              | bigint     | null: false                    |
-| user_id            | references | null: false, foreign_key: true |
+| shipping_fee_id    | integer    | null: false                    |
+| ship_address_id    | integer    | null: false                    |
+| shipping_day_id    | integer    | null: false                    |
+| price              | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 belongs_to :user
-belongs_to :record
+has_one :record
 
 ## records
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| user_id            | references | null: false, foreign_key: true |
-| item_id            | references | null: false, foreign_key: true |
-| address_id         | references | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
 
 ### Association
-belongs_to :address
-has_one :user
+belongs_to :item
+belongs_to :user
 has_one :address
 
 ## addresses
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| postcode           | integer    | null: false                    |
-| region             | text       | null: false                    |
-| city               | text       | null: false                    |
-| block              | text       | null: false                    |
-| building           | text       |                                |
-| phone_number       | integer    | null: false                    |
-| record_id          | references | null: false, foreign_key: true |
+| postcode           | string     | null: false                    |
+| ship_address_id    | references | null: false, foreign_key: true |
+| city               | string     | null: false                    |
+| block              | string     | null: false                    |
+| building           | string     |                                |
+| phone_number       | string    | null: false                    |
+| record             | references | null: false, foreign_key: true |
 
 ### Association
 has_one :record

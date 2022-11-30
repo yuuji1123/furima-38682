@@ -3,7 +3,5 @@ class ItemsController < ApplicationController
     @itemss = Item.all
   end
 
-  def destroy
-  end
 
 end

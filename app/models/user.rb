@@ -17,5 +17,5 @@ class User < ApplicationRecord
          validates :first_name_kana
         end
         validates :birthday
-        end
+  end
 end

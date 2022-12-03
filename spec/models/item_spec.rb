@@ -54,7 +54,7 @@ RSpec.describe Item, type: :model do
             expect(@item.errors.full_messages).to include("Shipping day can't be blank")
           end
           it '販売価格が空では登録できないこと' do
-            @item.price = ''
+            @item.price = nil
             @item.valid?
             expect(@item.errors.full_messages).to include("Price can't be blank")
           end
@@ -64,7 +64,7 @@ RSpec.describe Item, type: :model do
             expect(@item.errors.full_messages).to include("Price Out of setting range")
           end
           it '販売価格が¥300以上であること' do
-            @item.price = '290'
+            @item.price = 290
             @item.valid?
             expect(@item.errors.full_messages).to include("Price Out of setting range")
           end

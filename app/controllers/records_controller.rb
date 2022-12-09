@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
 
   def index
-    @record = Record.new(record_params)
+    @record_adress = RecordAdress.new(record_params)
     @item = Item.find(params[:item_id])
   end
 
@@ -9,12 +9,13 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @record_address = RecordAddress.new(record_params)
-    if @record_address.valid?
-       @record_address.save
+    @item = Item.find(params[:item_id])
+    @record_adress = RecordAdress.new(record_params)
+    if @record_adress.valid?
+       @record_adress.save
        redirect_to root_path
     else
-      render action: :index
+      render :index
     end
   end
 

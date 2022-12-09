@@ -1,14 +1,14 @@
-class RecordsAdressController < ApplicationController
+class RecordsAddressController < ApplicationController
 
   def index
   end
   
   def create
-    @record = RecordAddress.new(record_params)
+    @record = Record.new(record_params)
     if @record.save
       return redirect_to root_path
     else
-      render 'orders/index'
+      render :index
     end
 
     private

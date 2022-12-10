@@ -8,8 +8,10 @@ class RecordAdress
     validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :city, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
     validates :block
-    validates :phone_number, format: {with: /\A\d{10}\z|\A\d{11}\z/ , message: "is invalid."}
+    validates :phone_number, format: {with: /\A[0-9]{11}\z/ , message: "is invalid."}
   end
+
+  validates :ship_address_id, numericality: { other_than: 1 , message: "can't be blank"}
 
   def save
     record = Record.create(user_id: user_id, item_id: item_id)

@@ -58,6 +58,11 @@ RSpec.describe RecordAdress, type: :model do
         @record_adress.valid?
         expect(@record_adress.errors.full_messages).to include("Phone number is invalid.")
       end
+      it 'トークンが空だと保存できないこと' do
+        @record_adress.token = nil
+        @record_adress.valid?
+        expect(@record_adress.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end

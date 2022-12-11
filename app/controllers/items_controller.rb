@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all.order(created_at: :desc)
+    
   end
 
   def new
@@ -24,6 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
+
   end
 
   def update
@@ -51,6 +53,9 @@ class ItemsController < ApplicationController
   end
 
   def same_user
-    redirect_to root_path if current_user.id != @item.user_id
+   if current_user.id == @item.user_id && @item.record.nil?
+   else
+   redirect_to root_path
+   end
   end
 end

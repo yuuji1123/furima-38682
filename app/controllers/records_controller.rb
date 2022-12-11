@@ -1,13 +1,13 @@
 class RecordsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :unsold_item, only: [:index, :create]
 
   def index
     @record_adress = RecordAdress.new
-    @item = Item.find(params[:item_id])
   end
 
 
   def create
-    @item = Item.find(params[:item_id])
     @record_adress = RecordAdress.new(record_params)
     if @record_adress.valid?
       pay_item
@@ -31,7 +31,11 @@ class RecordsController < ApplicationController
       card: record_params[:token],
       currency: 'jpy'    
     )
+  end
 
+  def unsold_item
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if current_user.id == @item.user_id || @item.record.present?
   end
 
 end

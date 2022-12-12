@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe RecordAdress, type: :model do
     before do
-      @record_adress = FactoryBot.build(:record_adress)
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @record_adress = FactoryBot.build(:record_adress, user_id: @user.id, item_id: @item.id)
+      sleep 0.1
     end
 
   describe '配送先情報の保存' do
@@ -13,6 +16,16 @@ RSpec.describe RecordAdress, type: :model do
     end
 
     context '配送先情報の保存ができないとき' do
+      it 'userが紐付いていないと保存できないこと' do
+        @record_adress.user_id = ''
+        @record_adress.valid?
+        expect(@record_adress.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていないと保存できないこと' do
+        @record_adress.item_id = ''
+        @record_adress.valid?
+        expect(@record_adress.errors.full_messages).to include("Item can't be blank")
+      end
       it '郵便番号が空だと保存できないこと' do
         @record_adress.postcode = ''
         @record_adress.valid?
@@ -38,6 +51,10 @@ RSpec.describe RecordAdress, type: :model do
         @record_adress.valid?
         expect(@record_adress.errors.full_messages).to include("Block can't be blank")
       end
+      it '建物名が空でも保存できること' do
+        @record_adress.building = nil
+        expect(@record_adress).to be_valid
+      end
       it '電話番号が空だと保存できないこと' do
         @record_adress.phone_number = nil
         @record_adress.valid?
@@ -50,6 +67,11 @@ RSpec.describe RecordAdress, type: :model do
       end
       it '電話番号が12桁以上あると保存できないこと' do
         @record_adress.phone_number = 1234567890123
+        @record_adress.valid?
+        expect(@record_adress.errors.full_messages).to include("Phone number is invalid.")
+      end
+      it '電話番号が9桁以下だと保存できないこと' do
+        @record_adress.phone_number = 12345678
         @record_adress.valid?
         expect(@record_adress.errors.full_messages).to include("Phone number is invalid.")
       end

@@ -83,10 +83,6 @@ RSpec.describe RecordAdress, type: :model do
         @record_adress.valid?
         expect(@record_adress.errors.full_messages).to include("Block can't be blank")
       end
-      it '建物名が空でも保存できること' do
-        @record_adress.building = nil
-        expect(@record_adress).to be_valid
-      end
       it '電話番号が空だと保存できないこと' do
         @record_adress.phone_number = nil
         @record_adress.valid?

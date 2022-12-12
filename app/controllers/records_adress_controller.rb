@@ -10,8 +10,8 @@ class RecordsAddressController < ApplicationController
     else
       render :index
     end
-
-    private
+  end
+  private
 
   def record_params
     params.require(:record_adress).permit(:postcode, :ship_address_id, :city, :block, :building, :phone_number, :user_id, :item_id)

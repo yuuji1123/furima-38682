@@ -13,6 +13,38 @@ RSpec.describe RecordAdress, type: :model do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@record_adress).to be_valid
       end
+      it 'user_idが空でなければ保存できる' do
+        @record_adress.user_id = 1
+        expect(@record_adress).to be_valid
+      end
+      it 'item_idが空でなければ保存できる' do
+        @record_adress.item_id = 1
+        expect(@record_adress).to be_valid
+      end
+      it '郵便番号が「3桁+ハイフン+4桁」の組み合わせであれば保存できる' do
+        @record_adress.postcode = '123-4560'
+        expect(@record_adress).to be_valid
+      end
+      it '都道府県が空でなければ保存できる' do
+        @record_adress.ship_address_id = 2
+        expect(@record_adress).to be_valid
+      end
+      it '市区町村が空でなければ保存できる' do
+        @record_adress.city = '横浜市'
+        expect(@record_adress).to be_valid
+      end
+      it '番地が空でなければ保存できる' do
+        @record_adress.block = '旭区１２３'
+        expect(@record_adress).to be_valid
+      end
+      it '建物名が空でも保存できる' do
+        @record_adress.building = ''
+        expect(@record_adress).to be_valid
+      end
+      it '電話番号が11番桁以内かつハイフンなしであれば保存できる' do
+        @record_adress.phone_number = 12345678910
+        expect(@record_adress).to be_valid
+      end
     end
 
     context '配送先情報の保存ができないとき' do
